@@ -30,7 +30,10 @@ function ChampIMG(props){
             
         }
     return(
-        <img src= {`${props.api}img/champion/splash/${champ}_0.jpg`} alt=""/>
+        <div  >
+            <img style={{height: "100px", width:"100px"}} src= {`${props.api}img/champion/splash/${champ}_0.jpg`} alt=""/>
+        </div>
+        
     )
 }
 export default ChampIMG

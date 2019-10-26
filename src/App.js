@@ -6,11 +6,12 @@ import Body from './components/Body'
 
 function App() {
   return (
-    <div className="App">
+    <diV>
       <Header/>
       <Body/>
-    </div>
-  );
+    </diV>    
+ 
+  )
 }
 
 export default App;

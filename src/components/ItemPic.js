@@ -29,8 +29,8 @@ class ItemPic extends React.Component{
     render(){
         
         return(
-            <div>
-                <img src={this.state.spells===null? "":`http://ddragon.leagueoflegends.com/cdn/9.21.1/img/spell/${this.state.Img}`} alt=""/>
+            <div className="itemPic">
+                <img style={{border: "solid grey 5px", borderRadius: "5px"}}src={this.state.spells===null? "":`http://ddragon.leagueoflegends.com/cdn/9.21.1/img/spell/${this.state.Img}`} alt=""/>
             </div>
         )
     }
