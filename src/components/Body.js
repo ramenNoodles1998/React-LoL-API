@@ -13,15 +13,13 @@ class Body extends React.Component {
             wCooldwon: null,
             eCooldown: null,
             rCooldown: null,
-            data: null
+            data: null,
+            ready: "No"
 
 
         }
     }
-
-    handleChange = (event) => {
-        const { name, value } = event.target
-        let champ = value
+    resetWord(champ) {
         if (champ.length > champ.replace(/\s/g, '').length) {
             champ = champ.charAt(0).toUpperCase() + champ.substring(1).toLowerCase()
             champ = champ.substring(0, champ.indexOf(" ")) + champ.charAt(champ.indexOf(" ") + 1).toUpperCase() + champ.substring(champ.indexOf(" ") + 2)
@@ -44,6 +42,13 @@ class Body extends React.Component {
 
 
         }
+        return champ
+
+    }
+    handleChange = (event) => {
+        const { name, value } = event.target
+        let champ = this.resetWord(value)
+
         this.setState({
             [name]: value,
             spells: null,
@@ -52,10 +57,12 @@ class Body extends React.Component {
             eCooldown: null,
             rCooldown: null,
             itemIMG: null,
-            data: null
+            data: null,
+            placeHolder: " ",
+            ready: "No"
 
         })
-        console.log(champ)
+
         fetch(`${this.state.api}9.21.1/data/en_US/champion/${champ}.json`)
             .then(response => {
                 return response.json()
@@ -67,75 +74,83 @@ class Body extends React.Component {
                     prevState.wCooldown = prevState.data[champ].spells[1].cooldown
                     prevState.eCooldown = prevState.data[champ].spells[2].cooldown
                     prevState.rCooldown = prevState.data[champ].spells[3].cooldown
+                    prevState.ready = "Yes"
+                    
 
                     return prevState
                 })
 
             }).catch(() => {
                 this.setState({
-                    placeHolder: "Could not find Champion"
+                    placeHolder: "Could Not Find Champion! Try Again!",
+                    ready: "No"
                 })
             })
 
 
     }
     render() {
-
+        console.log(this.state.ready)
         return (
             <div >
+                <div className="container1">
 
-                <input className="input" name="val" value={this.state.val} onChange={this.handleChange} />
-                <ChampIMG
-                    api={this.state.api}
-                    champ={this.state.val}
-                />
+                    <input className="input" name="val" value={this.state.val} onChange={this.handleChange} />
+                    <p style={{ color: "whiteSmoke", padding: "1em", fontWeight: "bold" }}>{this.state.ready==="No"?this.state.placeHolder:""}</p>
 
+                </div>
                 <div className="container">
-
                     <ItemPic
                         spells={this.state.spells === null ? null : this.state.spells}
                         num="0"
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
                     />
                     <Spell
                         name={this.state.spells === null ? "" : this.state.spells[0].name}
                         description={this.state.spells === null ? "" : this.state.spells[0].description}
                         cooldown={this.state.qCooldown === null ? null : this.state.qCooldown}
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
                     />
-
                 </div>
-
-
-                <ItemPic
-                    spells={this.state.spells === null ? null : this.state.spells}
-                    num="1"
-                />
-                <Spell
-                    name={this.state.spells === null ? "" : this.state.spells[1].name}
-                    description={this.state.spells === null ? "" : this.state.spells[1].description}
-                    cooldown={this.state.wCooldown === null ? null : this.state.wCooldown}
-                />
-                <ItemPic
-                    spells={this.state.spells === null ? null : this.state.spells}
-                    num="2"
-                />
-                <Spell
-                    name={this.state.spells === null ? "" : this.state.spells[2].name}
-                    description={this.state.spells === null ? "" : this.state.spells[2].description}
-                    cooldown={this.state.eCooldown === null ? null : this.state.eCooldown}
-                />
-                <ItemPic
-                    spells={this.state.spells === null ? null : this.state.spells}
-                    num="3"
-                />
-                <Spell
-                    name={this.state.spells === null ? "" : this.state.spells[3].name}
-                    description={this.state.spells === null ? "" : this.state.spells[3].description}
-                    cooldown={this.state.rCooldown === null ? null : this.state.rCooldown}
-                />
-
-
-
-
+                <div className="container">
+                    <ItemPic
+                        spells={this.state.spells === null ? null : this.state.spells}
+                        num="1"
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
+                    />
+                    <Spell
+                        name={this.state.spells === null ? "" : this.state.spells[1].name}
+                        description={this.state.spells === null ? "" : this.state.spells[1].description}
+                        cooldown={this.state.wCooldown === null ? null : this.state.wCooldown}
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
+                    />
+                </div>
+                <div className="container">
+                    <ItemPic
+                        spells={this.state.spells === null ? null : this.state.spells}
+                        num="2"
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
+                    />
+                    <Spell
+                        name={this.state.spells === null ? "" : this.state.spells[2].name}
+                        description={this.state.spells === null ? "" : this.state.spells[2].description}
+                        cooldown={this.state.eCooldown === null ? null : this.state.eCooldown}
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
+                    />
+                </div>
+                <div className="container">
+                    <ItemPic
+                        spells={this.state.spells === null ? null : this.state.spells}
+                        num="3"
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
+                    />
+                    <Spell
+                        name={this.state.spells === null ? "" : this.state.spells[3].name}
+                        description={this.state.spells === null ? "" : this.state.spells[3].description}
+                        cooldown={this.state.rCooldown === null ? null : this.state.rCooldown}
+                        ready={this.state.ready ==="Yes"? "Yes": "No"}
+                    />
+                </div>
             </div>
 
 

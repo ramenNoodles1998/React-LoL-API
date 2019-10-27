@@ -31,7 +31,7 @@ function ChampIMG(props){
         }
     return(
         <div  >
-            <img style={{height: "100px", width:"100px"}} src= {`${props.api}img/champion/splash/${champ}_0.jpg`} alt=""/>
+            <img style={{height: "2em", width:"2em"}} src= {`${props.api}img/champion/splash/${champ}_0.jpg`} alt=""/>
         </div>
         
     )

@@ -1,10 +1,12 @@
 import React from 'react'
 class ItemPic extends React.Component{
     constructor(props){
+        console.log(props)
         super(props)
         this.state={
             spells: this.props.spells,
             num: this.props.num,
+            ready: this.props.ready,
             Img: null
         }
     }
@@ -27,10 +29,10 @@ class ItemPic extends React.Component{
         }
     }
     render(){
-        
+        console.log(this.state.ready)
         return(
-            <div className="itemPic">
-                <img style={{border: "solid grey 5px", borderRadius: "5px"}}src={this.state.spells===null? "":`http://ddragon.leagueoflegends.com/cdn/9.21.1/img/spell/${this.state.Img}`} alt=""/>
+            <div className={this.state.spells===null? "":"itemPic"}>
+                <img style={this.state.spells===null?{}: {border: "solid  #282c34 .3em", borderRadius: "5px"}}src={this.state.spells===null? "":`http://ddragon.leagueoflegends.com/cdn/9.21.1/img/spell/${this.state.Img}`} alt=""/>
             </div>
         )
     }
