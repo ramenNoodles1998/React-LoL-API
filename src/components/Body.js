@@ -82,7 +82,7 @@ class Body extends React.Component {
 
             }).catch(() => {
                 this.setState({
-                    placeHolder: "Could Not Find Champion! Try Again!",
+                    placeHolder: "Could Not Find Champion! Try To Search Again!",
                     ready: "No"
                 })
             })
